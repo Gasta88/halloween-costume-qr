@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween Costume QR - Random Redirect</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #ff6600;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        
+        .loading {
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 50%, 100% {
+                opacity: 1;
+            }
+            25%, 75% {
+                opacity: 0.5;
+            }
+        }
+        
+        .pumpkin {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="pumpkin">🎃</div>
+        <div class="loading">Preparing your Halloween surprise...</div>
+    </div>
+
+    <script>
+        const memes = [
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXlwa3kxd3Z2a21mNHAyaHBzcW1qeTU4MDJxdmJzbzl5a24wdGpvdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/rkyUHktm4RAys/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXlwa3kxd3Z2a21mNHAyaHBzcW1qeTU4MDJxdmJzbzl5a24wdGpvdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/CjToMcHtgrKzCjatVL/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXlwa3kxd3Z2a21mNHAyaHBzcW1qeTU4MDJxdmJzbzl5a24wdGpvdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2vmgb8ZGaeBsuSeo5I/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3b2ppdm51MWE3NGUybXlmMjF4Mmg2YmZiaTNzbmg0cmxudGMycWwyciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MsJO9AUbrLWy4/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3b2ppdm51MWE3NGUybXlmMjF4Mmg2YmZiaTNzbmg0cmxudGMycWwyciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/as7dAHOzqP1PlRkQ36/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NTBucDB6MDYxYnB6c2s0N3FqNDY2dHFkNnNyZW1wamZ0ZTlmd2h1ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/fOTPOU7jHsKxtP3OaU/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NTBucDB6MDYxYnB6c2s0N3FqNDY2dHFkNnNyZW1wamZ0ZTlmd2h1ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HahdeKQ1o2i4XvnnOE/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZWp3YXcxMWlqeHppbmFpYjl1Z3Q2cXlpMmE5MGIxeWJlbW1ic2VsMCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/GLbYPAMb7K2zBGdZ1c/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NHQ4OTlqM202YnpvejVteDNucWZpNjZ5MnB5ZDlkcnN6bWVkNWhlOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/yDnoU0EcrwxoumgbBm/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3azlmbXA4Njd1aGw0Nm84MnpiZDJwaG95bDdxbHdpb3JxdGh2MGNkbCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Cx48Tn60hn0L78TBxh/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MHpqYWZhajNoa3RpNXNlMmptejhyZG9rcHVxdjdyaXF4ODUwNTFteSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/LbGmir1ljfgIi1dfBw/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bnI1dXNxdW10c2lmbnVpaDFhNnJncGNsbjRpcGRpNmxlb2l0eTl6bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/1X7xHKopCeZu1c7SaT/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2t3bWljaW9oMHE2cjYyejVpdms4cGJsMWUya25yN2dlMGpseDhsciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ThrM4jEi2lBxd7X2yz/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW5sZTY1NzY4bWx0dmtqdmV3aHdwb25ydWw0ZTVyd2N1bDJjbmh0bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/jbJYmyIdelAJh9LQPs/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW5sZTY1NzY4bWx0dmtqdmV3aHdwb25ydWw0ZTVyd2N1bDJjbmh0bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/6KifWEyqZ1A3kw2P30/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW5sZTY1NzY4bWx0dmtqdmV3aHdwb25ydWw0ZTVyd2N1bDJjbmh0bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/iDJQRjTCenF7A4BRyU/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZDJzMTlnajlua2Y5ZzljeDRsMG8za3M3cnc5OXM1M2kxbjdvOTVkOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/CxkL3v3yA7IzTUivKz/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3em51MjI2Mnl0NDZhMnF1dThpOW9rMjc0MXBrN3I5bHIwb3BqMmczZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/jrj4WMRpZN5PTk5xSu/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3em51MjI2Mnl0NDZhMnF1dThpOW9rMjc0MXBrN3I5bHIwb3BqMmczZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xVudSZL97djWljDzvg/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MHg3Z25qdDMxY255bXA2ZzU3MGhkYmNieTU2NWE0ODFnYXVpemVreSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TLxoMSMaqpJd8WCIal/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWlmenQ0d2hjbzkwaXFuZ2I2aGF0N3hpeTRzbXc2Mm9oazYyYjMyNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AyhlWMWWBUMuI/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3a25yanoyOGx3bHNyOXp5djczaXV4NzV4anFiZWh1OWp1aHI2YjBnOCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/UYGS53pznEblK/giphy.gif",
+            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzBlOTh4bmFmcXB5emxldzA2cjM1aHV6MGo5enc3ZnlpMmd1ZTlvaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/o2m1zzMEtxDO/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWZ5bXQ2a2FxNm84NnVxa2M2bWh0eHdpNTFrZGVjajFtNWNraXd6aSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kCrGOt5ojlVbG/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aGlqeTlhemJ1ejJ2Zm1zYmhsMnc4aW1seGJqM20xZXdrZGtvZHd1ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/J02IfE7NGbJrfrTtrb/giphy.gif"
+        ];
+
+        // Add a small delay to show the loading screen, then redirect
+        setTimeout(() => {
+            window.location = memes[Math.floor(Math.random() * memes.length)];
+        }, 1500);
+    </script>
+</body>
+</html>
