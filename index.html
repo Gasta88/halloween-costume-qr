@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halloween Costume QR - Random Redirect</title>
+    <title>Halloween Costume QR - Spooky Surprise</title>
     <style>
         body {
             margin: 0;
@@ -16,11 +16,18 @@
             align-items: center;
             min-height: 100vh;
             text-align: center;
+            overflow: hidden;
+        }
+        
+        .loading-container {
+            display: block;
+            z-index: 10;
         }
         
         .loading {
             font-size: 24px;
             animation: pulse 2s infinite;
+            margin-bottom: 20px;
         }
         
         @keyframes pulse {
@@ -36,12 +43,110 @@
             font-size: 72px;
             margin-bottom: 20px;
         }
+
+        .gif-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 20;
+            background: #000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .halloween-gif {
+            max-width: 100vw;
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 30;
+            display: none;
+            gap: 15px;
+        }
+
+        .btn {
+            background: #ff6600;
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+        }
+
+        .btn:hover {
+            background: #ff8533;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .controls {
+                bottom: 15px;
+                gap: 10px;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            
+            .loading {
+                font-size: 20px;
+            }
+            
+            .pumpkin {
+                font-size: 60px;
+            }
+        }
+
+        /* Fade in animation for GIF */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .gif-container.show {
+            animation: fadeIn 0.5s ease-in;
+        }
     </style>
 </head>
 <body>
-    <div>
+    <!-- Loading Screen -->
+    <div class="loading-container" id="loadingContainer">
         <div class="pumpkin">🎃</div>
         <div class="loading">Preparing your Halloween surprise...</div>
+    </div>
+
+    <!-- GIF Display Container -->
+    <div class="gif-container" id="gifContainer">
+        <img class="halloween-gif" id="halloweenGif" alt="Spooky Halloween Surprise" />
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="controls" id="controls">
+        <button class="btn" onclick="getNewGif()">🎃 New Surprise</button>
+        <button class="btn" onclick="toggleFullscreen()">📺 Fullscreen</button>
+        <button class="btn" onclick="shareGif()">👻 Share</button>
     </div>
 
     <script>
@@ -73,9 +178,99 @@
             "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aGlqeTlhemJ1ejJ2Zm1zYmhsMnc4aW1seGJqM20xZXdrZGtvZHd1ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/J02IfE7NGbJrfrTtrb/giphy.gif"
         ];
 
-        // Add a small delay to show the loading screen, then redirect
+        let currentGifUrl = '';
+
+        // Function to get a random GIF
+        function getRandomGif() {
+            return memes[Math.floor(Math.random() * memes.length)];
+        }
+
+        // Function to display the GIF
+        function showGif(gifUrl) {
+            const gifImg = document.getElementById('halloweenGif');
+            const gifContainer = document.getElementById('gifContainer');
+            const loadingContainer = document.getElementById('loadingContainer');
+            const controls = document.getElementById('controls');
+
+            currentGifUrl = gifUrl;
+            gifImg.src = gifUrl;
+            
+            // Hide loading screen and show GIF
+            loadingContainer.style.display = 'none';
+            gifContainer.style.display = 'flex';
+            gifContainer.classList.add('show');
+            controls.style.display = 'flex';
+        }
+
+        // Function to get a new GIF
+        function getNewGif() {
+            const loadingContainer = document.getElementById('loadingContainer');
+            const gifContainer = document.getElementById('gifContainer');
+            const controls = document.getElementById('controls');
+            
+            // Show loading screen briefly
+            gifContainer.style.display = 'none';
+            controls.style.display = 'none';
+            loadingContainer.style.display = 'block';
+            
+            setTimeout(() => {
+                const newGif = getRandomGif();
+                showGif(newGif);
+            }, 800);
+        }
+
+        // Function to toggle fullscreen
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log('Error attempting to enable fullscreen:', err);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Function to share the current GIF
+        function shareGif() {
+            if (navigator.share && currentGifUrl) {
+                navigator.share({
+                    title: 'Spooky Halloween Surprise! 🎃',
+                    text: 'Check out this spooky Halloween GIF!',
+                    url: currentGifUrl
+                });
+            } else {
+                // Fallback: copy URL to clipboard
+                navigator.clipboard.writeText(currentGifUrl).then(() => {
+                    alert('🎃 GIF URL copied to clipboard!');
+                }).catch(() => {
+                    alert('🎃 GIF URL: ' + currentGifUrl);
+                });
+            }
+        }
+
+        // Handle keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case ' ':
+                case 'Enter':
+                    e.preventDefault();
+                    getNewGif();
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 's':
+                case 'S':
+                    shareGif();
+                    break;
+            }
+        });
+
+        // Initialize with a random GIF after loading screen
         setTimeout(() => {
-            window.location = memes[Math.floor(Math.random() * memes.length)];
+            const randomGif = getRandomGif();
+            showGif(randomGif);
         }, 1500);
     </script>
 </body>
