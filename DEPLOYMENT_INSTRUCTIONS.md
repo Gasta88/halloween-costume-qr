@@ -63,3 +63,70 @@ The previous **"Get Pages site failed"** error was caused by:
 
 ## 🔧 Customization
 To add more Halloween GIFs, simply edit the `memes` array in `index.html` and push the changes. The site will automatically redeploy!
+
+---
+
+## 📄 GitHub Actions Workflow Code (For Manual Setup)
+
+If you want to use GitHub Actions, create `.github/workflows/deploy.yml` with this content:
+
+```yaml
+name: Deploy Halloween QR Site to GitHub Pages
+
+# Trigger on push to main branch and manual dispatch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# GitHub Pages permissions
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job for static HTML site
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository (static HTML site)
+          path: '.'
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    # Only deploy on push to main, not on PRs
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+**Key Features:**
+- ✅ No Node.js/npm build (perfect for static HTML)
+- ✅ Deploys directly from repository root (`path: '.'`)
+- ✅ Proper GitHub Pages permissions
+- ✅ Manual dispatch capability (`workflow_dispatch`)
+- ✅ Only deploys on push to main (not on PRs)
