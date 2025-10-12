@@ -1,17 +1,19 @@
-# Halloween Costume QR - Random Redirect 🎃
+# Halloween Costume QR - Full-Screen Spooky Surprise 🎃
 
-A fun Halloween-themed website that randomly redirects visitors to spooky GIFs! Perfect for QR codes that lead to surprise Halloween content.
+A fun Halloween-themed website that displays random spooky GIFs in full-screen! Perfect for QR codes that lead to immersive Halloween experiences.
 
 ## 🎯 Purpose
 
-This static website is designed to be deployed via GitHub Pages and accessed through a QR code. Each time someone visits the site, they'll be redirected to a random Halloween-themed GIF from a curated collection of spooky animations.
+This static website is designed to be deployed via GitHub Pages and accessed through a QR code. Each time someone visits the site, they'll see a random Halloween-themed GIF displayed in full-screen from a curated collection of spooky animations.
 
 ## 🚀 Features
 
-- **Random Redirect**: Automatically redirects to one of 25 Halloween GIFs
-- **Halloween Theme**: Spooky loading screen with pumpkin emoji
-- **Mobile Friendly**: Responsive design that works great on phones (perfect for QR code scanning)
-- **Fast Loading**: Minimal HTML with embedded CSS and JavaScript
+- **Full-Screen GIF Display**: Shows Halloween GIFs directly on the site in full-screen mode
+- **Interactive Controls**: Buttons for new surprises, fullscreen toggle, and sharing
+- **Keyboard Shortcuts**: Space/Enter (new GIF), F (fullscreen), S (share)
+- **Halloween Theme**: Spooky loading screen with pumpkin emoji and orange accents
+- **Mobile Optimized**: Touch-friendly responsive design perfect for QR code scanning
+- **Share Functionality**: Web Share API with clipboard fallback for easy sharing
 - **Auto Deployment**: GitHub Actions automatically deploys changes to GitHub Pages
 
 ## 🔧 How It Works
@@ -19,7 +21,8 @@ This static website is designed to be deployed via GitHub Pages and accessed thr
 1. User scans QR code or visits the website URL
 2. Page displays a spooky loading screen for 1.5 seconds
 3. JavaScript randomly selects one of the Halloween GIFs
-4. User is automatically redirected to the selected GIF
+4. GIF displays full-screen with interactive controls
+5. Users can get new surprises, toggle fullscreen, or share the current GIF
 
 ## 🎭 GIF Collection
 
@@ -73,15 +76,23 @@ Modify the CSS in the `<style>` section of `index.html`:
 - Loading animation
 - Emoji or text
 
-### Adjusting Redirect Timing
+### Adjusting Loading Screen Timing
 
 Change the timeout value in the JavaScript:
 
 ```javascript
 setTimeout(() => {
-    window.location = memes[Math.floor(Math.random() * memes.length)];
+    const randomGif = getRandomGif();
+    showGif(randomGif);
 }, 1500); // Change 1500 to your desired milliseconds
 ```
+
+### Adding Interactive Features
+
+The site includes several interactive elements you can customize:
+- **Button styles**: Modify the `.btn` CSS class
+- **Keyboard shortcuts**: Edit the `keydown` event listener
+- **Animation timing**: Adjust CSS animations and JavaScript timeouts
 
 ## 🔗 QR Code Usage
 
