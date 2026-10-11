@@ -31,3 +31,6 @@ build/
 # Logs
 *.log
 logs/
+
+# AI
+specs/
